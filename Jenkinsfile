@@ -7,7 +7,7 @@ pipeline {
          stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("amcart-product")
+                 app = docker.build("z4m1p6s9/amcart-product")
                 }
             }
         }
