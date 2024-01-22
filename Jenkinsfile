@@ -7,7 +7,7 @@ pipeline {
          stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("amcart-products")
+                 app = docker.build("amcart-product")
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script{
-                        docker.withRegistry('https://gallery.ecr.aws/z4m1p6s9/amcart-product', 'ecr:us-east-2:aws-credentials') {
+                        docker.withRegistry('https://gallery.ecr.aws/z4m1p6s9', 'ecr:us-east-2:aws-credentials') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
