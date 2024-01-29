@@ -69,7 +69,10 @@ const createTable = function (req, res) {
         if (tableErr) {
             console.error("Error JSON:", JSON.stringify(tableErr, null, 2));
         } else {
-            console.log("Created table successfully!");
+            res.send({
+                success: true,
+                message: "Created table successfully!"
+            })
         }
     });
 }
@@ -110,6 +113,23 @@ const getDynamoDBRecords = function (data) {
     return dynamoDBRecords;
 }
 
+const deleteTable = function(req, res) {
+    const client = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
+    client.deleteTable({
+        TableName: config.aws_table_name
+    }, function(err, data){
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({
+                success: true,
+                message: "Table deleted successfully!"
+            })
+        }
+    });
+}
+
 module.exports = {
-    getProductById, createTable, bulkInsert
+    getProductById, createTable, bulkInsert, deleteTable
 };

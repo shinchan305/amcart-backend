@@ -27,6 +27,7 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.get('/products/:id', productsRouter.getProductById);
 app.post('/create-table', productsRouter.createTable);
+app.delete('/delete-table', productsRouter.deleteTable);
 app.post('/bulk-insert', productsRouter.bulkInsert);
 app.use('/search', searchRouter);
 
