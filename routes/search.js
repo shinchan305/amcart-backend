@@ -27,14 +27,14 @@ const searchProducts = function (req, res) {
 const getRequestBody = function (req, suffix) {
     if (req.query.query) {
         return {
-            "from": req.query.from,
+            "from": req.query.from ? req.query.from : 0,
             "size": req.query.size ? req.query.size : 10,
             "query": {
                 "bool": {
                     "should": [
                         {
                             "multi_match": {
-                                "query": "{{query}}",
+                                "query": req.query.query,
                                 "fields": [
                                     "*"
                                 ]
