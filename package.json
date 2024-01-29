@@ -6,11 +6,13 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.501.0",
     "@opensearch-project/opensearch": "^2.5.0",
     "aws-sdk": "^2.1540.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.4.1",
+    "dynamodb-data-types": "^4.0.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",

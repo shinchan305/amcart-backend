@@ -25,7 +25,9 @@ app.use(function(req, res, next) {
   next();
 })
 app.use('/', indexRouter);
-app.use('/products', productsRouter);
+app.get('/products/:id', productsRouter.getProductById);
+app.post('/create-table', productsRouter.createTable);
+app.post('/bulk-insert', productsRouter.bulkInsert);
 app.use('/search', searchRouter);
 
 // catch 404 and forward to error handler
