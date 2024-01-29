@@ -1,9 +1,8 @@
 const client = require('./opensearch-client');
 
-const searchProducts = function (req, res) {
-
-    const body = getRequestBody(req, 'search');
-    console.log('search:' + JSON.stringify(body));
+const getFilters = function (req, res) {
+debugger;
+    const body = getRequestBody(req, 'brands');
     client.searchTemplate({
         index: 'product',
         body: body
@@ -15,10 +14,17 @@ const searchProducts = function (req, res) {
                 message: err
             });
         } else {
+
             res.send({
                 success: true,
-                products: data.body.hits.hits.map(x => x._source),
-                totalRecords: data.body.hits.total.value
+                data: {
+                    filters: [
+                        {
+                            category: "Brand",
+                            items: data.body.aggregations ? data.body.aggregations.distinct_brands.buckets.map(x => { return { id: x.key, value: `${x.key}` } }): []
+                        }
+                    ]
+                }
             });
         }
     });
@@ -31,7 +37,6 @@ const getRequestBody = function (req, suffix) {
             params: {
                 mainCategory: req.query.category,
                 subCategory: req.query.subCategory,
-                from: req.query.from
             }
         }
     }
@@ -40,7 +45,6 @@ const getRequestBody = function (req, suffix) {
             id: `main-category-${suffix}`,
             params: {
                 query: req.query.category,
-                from: req.query.from
             }
         };
     }
@@ -49,10 +53,9 @@ const getRequestBody = function (req, suffix) {
             id: `wildcard-${suffix}`,
             params: {
                 query: req.query.query,
-                from: req.query.from
             }
         };
     }
 }
 
-module.exports = { searchProducts };
+module.exports = { getFilters };

@@ -5,8 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var productsRouter = require('./routes/products'); 
-var searchRouter = require('./routes/search'); 
+var productsRouter = require('./routes/products');
+var searchRouter = require('./routes/search');
+var filterRouter = require('./routes/filter');
 
 var app = express();
 
@@ -19,17 +20,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 })
 app.use('/', indexRouter);
+app.get('/filters', filterRouter.getFilters);
 app.get('/products/:id', productsRouter.getProductById);
 app.post('/create-table', productsRouter.createTable);
 app.delete('/delete-table', productsRouter.deleteTable);
 app.post('/bulk-insert', productsRouter.bulkInsert);
-app.use('/search', searchRouter);
+app.use('/search', searchRouter.searchProducts);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
