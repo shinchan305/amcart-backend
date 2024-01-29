@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@opensearch-project/opensearch": "^2.5.0",
     "aws-sdk": "^2.1540.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
