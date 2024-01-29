@@ -1,18 +1,14 @@
 'use strict';
-var host = 'https://search-amcart-search-tonjytti7flgc6lahxabe74jzi.us-east-1.es.amazonaws.com';
 
-// Create a client with SSL/TLS enabled.
 var { Client } = require('@opensearch-project/opensearch');
-var fs = require('fs');
+const config = require('./config');
+
 const client = new Client({
     ssl: {
         rejectUnauthorized: false,
     },
-    node: host,
-    auth: {
-        username: 'suraj',
-        password: 'Pass@1234',
-    },
+    node: config.opensearch_config.host,
+    auth: config.opensearch_config.auth,
 });
 
 module.exports = client;

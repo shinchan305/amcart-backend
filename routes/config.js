@@ -1,11 +1,18 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 module.exports = {
     aws_table_name: 'products',
-    aws_local_config: {
-      //Provide details for local configuration
-    },
     aws_remote_config: {
-      accessKeyId: '<AWS_ACCESS_KEY>',
-      secretAccessKey: '<AWS_SECRET_KEY>',
-      region: 'us-east-1',
+      accessKeyId: process.env.AWS_ACCESS_ID,
+      secretAccessKey: process.env.AWS_ACCESS_KEY,
+      region: process.env.AWS_REGION,
+    },
+    opensearch_config: {
+      host: process.env.OPENSEARCH_HOST,
+      auth: {
+        username: process.env.OPENSEARCH_USER,
+        password: process.env.OPENSEARCH_PASS
+      }
     }
 };
