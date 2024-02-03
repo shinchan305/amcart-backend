@@ -99,7 +99,11 @@ const callDynamoDBInsert = async function (batches) {
                 RequestItems: requestItems
             };
             await dbclient.send(new BatchWriteItemCommand(params))
-        })
+            res.send({
+                success: true,
+                message: "Records inserted successfully!"
+            })
+        })  
     );
 }
 
