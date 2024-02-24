@@ -30,10 +30,10 @@ pipeline {
             steps {
                 script {
                     if ("${BRANCH_NAME}" == 'main') {
-                        build propagate: false, job: '/amcart-product-cd/main'
+                        build propagate: false, job: 'services/amcart-product-cd/main'
                     }
                     if ("${BRANCH_NAME}" == 'test') {
-                        build propagate: false, job: '/amcart-product-cd/test'
+                        build propagate: false, job: 'services/amcart-product-cd/test'
                     }
                 }
             }
